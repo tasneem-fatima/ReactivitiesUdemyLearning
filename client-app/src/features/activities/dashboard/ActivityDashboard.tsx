@@ -25,6 +25,7 @@ function ActivityDashboard(props: Props) {
           activity={props.activities}
           selectActivity={props.selectActivity}
           deleteHandler={props.deleteHandler}
+          submitting={props.submitting}
         />
       </Grid.Column>
       <Grid.Column width="6">
