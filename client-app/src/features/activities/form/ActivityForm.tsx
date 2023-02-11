@@ -4,7 +4,8 @@ import { Activity } from "../../../app/models/activity";
 interface Props {
   activity: Activity | undefined;
   closeForm: () => void;
-  createOrEdit:(activity: Activity)=> void;
+  createOrEdit: (activity: Activity) => void;
+  submitting: boolean;
 }
 function ActivityForm(props: Props) {
   const initialState = props.activity ?? {
@@ -18,10 +19,12 @@ function ActivityForm(props: Props) {
   };
   const [activity, setActivity] = useState(initialState);
   const handleSubmit = () => {
-    console.log(activity,'Activity');
+    console.log(activity, "Activity");
     props.createOrEdit(activity);
   };
-  const hanldeInputChange = (event: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
+  const hanldeInputChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
     setActivity({ ...activity, [name]: value });
   };
@@ -65,7 +68,13 @@ function ActivityForm(props: Props) {
           name="venue"
           onChange={hanldeInputChange}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button
+          loading={props.submitting}
+          floated="right"
+          positive
+          type="submit"
+          content="Submit"
+        />
         <Button
           onClick={props.closeForm}
           floated="right"
